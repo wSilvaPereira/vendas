@@ -12,8 +12,7 @@ import org.springframework.web.bind.annotation.RestController;
 @RestController
 public class VendasApplication {
 
-    @Autowired
-    @Qualifier("applicationName")
+    @Value("${application.name}")
     private String applicationName;
 
     @GetMapping("/hello")
