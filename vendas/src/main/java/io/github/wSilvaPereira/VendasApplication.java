@@ -16,7 +16,7 @@ public class VendasApplication {
     private String applicationName;
 
     @GetMapping("/hello")
-    public String helloWorld(){
+    public String helloWorld() {
         return applicationName;
     }
 
