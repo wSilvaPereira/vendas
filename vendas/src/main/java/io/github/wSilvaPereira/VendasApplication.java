@@ -30,8 +30,10 @@ public class VendasApplication {
                 clientes.save(cliente);
             });
 
-            System.out.println("Buscanco clientes por nome");
-            clientes.findByNomeLike("W").forEach(System.out::println);
+            System.out.println("Buscando clientes por nome");
+            clientes.findByNomeLike("%i%").forEach(System.out::println);
+//            clientes.findByNomeLikeOrderByNome("%i%").forEach(System.out::println);
+//            clientes.findByNomeContains("i").forEach(System.out::println);
 
             System.out.println("Listando clientes");
             clientes.findAll().forEach(cliente -> {
