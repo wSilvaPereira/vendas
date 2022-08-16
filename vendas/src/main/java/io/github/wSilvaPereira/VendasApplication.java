@@ -33,10 +33,10 @@ public class VendasApplication {
             System.out.println("Buscanco clientes por nome");
             clientes.buscarPorNome("i").forEach(System.out::println);
 
-//            System.out.println("Listando clientes");
-//            clientes.obterTodos().forEach(cliente -> {
-//                clientes.deletar(cliente);
-//            });
+            System.out.println("Listando clientes");
+            clientes.obterTodos().forEach(cliente -> {
+                clientes.deletar(cliente);
+            });
 
             todosClientes = clientes.obterTodos();
             if (todosClientes.isEmpty()) {
@@ -44,8 +44,7 @@ public class VendasApplication {
             } else {
                 System.out.println("Listando clientes");
                 todosClientes.forEach(System.out::println);
-            }
-            ;
+            };
         };
 
     }
