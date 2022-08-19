@@ -11,12 +11,12 @@ import org.springframework.context.annotation.Bean;
 @SpringBootApplication
 public class VendasApplication {
 
-    @Bean
-    public CommandLineRunner commandLineRunner(@Autowired Clientes clientes){
-        return args -> {
-            clientes.save(new Cliente("William"));
-        };
-    }
+//    @Bean
+//    public CommandLineRunner commandLineRunner(@Autowired Clientes clientes){
+//        return args -> {
+//            clientes.save(new Cliente("William"));
+//        };
+//    }
 
     public static void main(String[] args) {
         SpringApplication.run(VendasApplication.class, args);
