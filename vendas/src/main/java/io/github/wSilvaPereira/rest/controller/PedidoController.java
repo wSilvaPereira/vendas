@@ -49,8 +49,7 @@ public class PedidoController {
     @PatchMapping("{id}")
     @ResponseStatus(NO_CONTENT)
     public void updateStatus(@PathVariable Integer id,
-                             @RequestBody AtualizacaoStatusPedidoDTO dto){
-
+                             @RequestBody AtualizacaoStatusPedidoDTO dto) {
         service.atualizaStatus(id, StatusPedido.valueOf(dto.getNovoStatus()));
     }
 
