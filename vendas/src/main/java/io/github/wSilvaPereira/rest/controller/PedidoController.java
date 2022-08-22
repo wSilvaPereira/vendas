@@ -2,23 +2,22 @@ package io.github.wSilvaPereira.rest.controller;
 
 import io.github.wSilvaPereira.domain.entity.ItemPedido;
 import io.github.wSilvaPereira.domain.entity.Pedido;
+import io.github.wSilvaPereira.domain.entity.enums.StatusPedido;
+import io.github.wSilvaPereira.rest.dto.AtualizacaoStatusPedidoDTO;
 import io.github.wSilvaPereira.rest.dto.InformacoesItemPedidoDTO;
 import io.github.wSilvaPereira.rest.dto.InformacoesPedidoDTO;
 import io.github.wSilvaPereira.rest.dto.PedidoDTO;
 import io.github.wSilvaPereira.service.PedidoService;
-
-import static org.springframework.http.HttpStatus.*;
-
-import net.bytebuddy.asm.Advice;
 import org.springframework.util.CollectionUtils;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.server.ResponseStatusException;
 
 import java.time.format.DateTimeFormatter;
-import java.util.Collection;
 import java.util.Collections;
 import java.util.List;
 import java.util.stream.Collectors;
+
+import static org.springframework.http.HttpStatus.*;
 
 @RestController
 @RequestMapping("/api/pedidos")
@@ -46,6 +45,14 @@ public class PedidoController {
                         new ResponseStatusException(NOT_FOUND, "Pedido não encontrado."));
     }
 
+    @PatchMapping("{id}")
+    @ResponseStatus(NO_CONTENT)
+    public void updateStatus(@PathVariable Integer id,
+                             @RequestBody AtualizacaoStatusPedidoDTO dto){
+
+        service.atualizaStatus(id, StatusPedido.valueOf(dto.getNovoStatus()));
+    }
+
     private InformacoesPedidoDTO converter(Pedido pedido) {
         return InformacoesPedidoDTO
                 .builder()
@@ -54,6 +61,7 @@ public class PedidoController {
                 .cpf(pedido.getCliente().getCpf())
                 .nomeCliente(pedido.getCliente().getNome())
                 .total(pedido.getTotal())
+                .status(pedido.getStatus().name())
                 .items(converter(pedido.getItens()))
                 .build();
     }
