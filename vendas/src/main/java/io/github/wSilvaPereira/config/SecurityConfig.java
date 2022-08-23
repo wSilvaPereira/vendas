@@ -3,6 +3,7 @@ package io.github.wSilvaPereira.config;
 import io.github.wSilvaPereira.service.impl.UsuarioServiceImpl;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
+import org.springframework.http.HttpMethod;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
@@ -23,11 +24,10 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 
     @Override
     protected void configure(AuthenticationManagerBuilder auth) throws Exception {
-        auth.inMemoryAuthentication()
-                .passwordEncoder(passwordEncoder())
-                .withUser("William")
-                .password(passwordEncoder().encode("123"))
-                .roles("USER", "ADMIN");
+        auth
+                .userDetailsService(usuarioService)
+                .passwordEncoder(passwordEncoder());
+
     }
 
     @Override
@@ -38,6 +38,8 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 .antMatchers("/api/clientes/**").hasAnyRole("USER", "ADMIN")
                 .antMatchers("/api/pedidos/**").hasAnyRole("USER", "ADMIN")
                 .antMatchers("/api/produtos/**").hasRole("ADMIN")
+                .antMatchers(HttpMethod.POST, "/api/usuarios/**").permitAll()
+                .anyRequest().authenticated()
                 .and()
                 .httpBasic();
     }

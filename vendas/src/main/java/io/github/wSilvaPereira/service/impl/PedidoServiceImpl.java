@@ -27,7 +27,7 @@ import java.util.stream.Collectors;
 @RequiredArgsConstructor
 public class PedidoServiceImpl implements PedidoService {
 
-    private final Pedidos repository;
+    private final Pedidos pedidoRepository;
     private final Clientes clientesRepository;
     private final Produtos produtosRepository;
     private final ItemsPedido itemsPedidoRepository;
@@ -48,7 +48,7 @@ public class PedidoServiceImpl implements PedidoService {
 
         List<ItemPedido> itemsPedido = converterItems(pedido, dto.getItems());
 
-        repository.save(pedido);
+        pedidoRepository.save(pedido);
         itemsPedidoRepository.saveAll(itemsPedido);
         pedido.setItens(itemsPedido);
         return pedido;
@@ -56,17 +56,17 @@ public class PedidoServiceImpl implements PedidoService {
 
     @Override
     public Optional<Pedido> obterPedidoCompleto(Integer id) {
-        return repository.findByIdFetchItens(id);
+        return pedidoRepository.findByIdFetchItens(id);
     }
 
     @Override
     @Transactional
     public void atualizaStatus(Integer id, StatusPedido statusPedido) {
-        repository
+        pedidoRepository
                 .findById(id)
                 .map( pedido -> {
                     pedido.setStatus(statusPedido);
-                    return repository.save(pedido);
+                    return pedidoRepository.save(pedido);
                 }).orElseThrow(() -> new PedidoNaoEncontradoException());
     }
 
