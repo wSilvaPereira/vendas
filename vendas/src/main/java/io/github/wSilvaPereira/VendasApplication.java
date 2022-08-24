@@ -2,16 +2,10 @@ package io.github.wSilvaPereira;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
+import org.springframework.boot.web.servlet.support.SpringBootServletInitializer;
 
 @SpringBootApplication
-public class VendasApplication {
-
-//    @Bean
-//    public CommandLineRunner commandLineRunner(@Autowired Clientes clientes){
-//        return args -> {
-//            clientes.save(new Cliente("William"));
-//        };
-//    }
+public class VendasApplication extends SpringBootServletInitializer {
 
     public static void main(String[] args) {
         SpringApplication.run(VendasApplication.class, args);
