@@ -1,0 +1,3 @@
+/vendas/target/vendas-1.0-SNAPSHOT.war
+/vendas/target/*
+*.jar
